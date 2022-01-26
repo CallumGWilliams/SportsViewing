@@ -20,12 +20,22 @@
     -webkit-tap-highlight-color: rgba(0,0,0,0); /* make transparent link selection, adjust last value opacity 0 to 1.0 */
 }
 
+.active{
+
+        background-color: #04AA6D;
+        }
+
+
+a {
+text-decoration: none;
+color: white;
+}
+
 body {
     -webkit-touch-callout: none;                /* prevent callout to copy image, etc when tap to hold */
     -webkit-text-size-adjust: none;             /* prevent webkit from resizing text to fit */
     -webkit-user-select: none;                  /* prevent copy paste, to allow, change 'none' to 'text' */
     background-color:#E4E4E4;
-    background-image:linear-gradient(to bottom, #A7A7A7 0%, #E4E4E4 51%);
     font-family: system-ui, -apple-system, -apple-system-font, 'Segoe UI', 'Roboto', sans-serif;
     font-size:12px;
     height:100vh;
@@ -39,11 +49,9 @@ body {
 
 /* Portrait layout (default) */
 .app {
-    background:url(../img/logo.png) no-repeat center top; /* 170px x 200px */
     position:absolute;             /* position in the center of the screen */
     left:50%;
-    top:50%;
-    height:50px;                   /* text area height */
+                      /* text area height */
     width:225px;                   /* text area width */
     text-align:center;
     padding:180px 0px 0px 0px;     /* image height is 200px (bottom 20px are overlapped with text) */
@@ -60,6 +68,53 @@ body {
                                       /* offset horizontal: half of image width and text area width */
     }
 }
+
+.sportsList {
+  list-style-type: none;
+  padding: 0;
+  width: 50%;
+  background-color: #f1f1f1;
+  border: 1px solid #555;
+  float: center
+  margin-right: auto;
+  margin-left: auto;
+}
+
+.sportsList li  {
+  display: block;
+  padding: 8px 16px;
+  text-decoration: none;
+  text-align: center;
+  border-bottom: 1px solid #555;
+}
+
+
+
+.navUl {
+                list-style-type: none;
+                margin: 0;
+                padding: 0;
+                overflow: hidden;
+                background-color: #333;
+                position: fixed;
+                bottom: 0;
+                width: 100%;
+
+                }
+
+                li {
+                float: left;
+                display: block;
+                text-decoration: none;
+                text-align: center;
+                padding: 12px 14px;
+                color: white;
+                }
+
+                a {
+
+                text-decoration: none;
+                }
 
 h1 {
     font-size:24px;
@@ -107,4 +162,8 @@ h1 {
     body {
         background-image:linear-gradient(to bottom, #585858 0%, #1B1B1B 51%);
     }
+
+
+
+
 }
