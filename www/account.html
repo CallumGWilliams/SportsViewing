@@ -1,4 +1,5 @@
 <meta name="format-detection" content="telephone=no">
+<script src=https://cdnjs.cloudflare.com/ajax/libs/pouchdb/7.2.2/pouchdb.min.js></script>
 <meta name="msapplication-tap-highlight" content="no">
 <meta name="viewport" content="initial-scale=1, width=device-width, viewport-fit=cover">
 <meta name="color-scheme" content="light dark">
@@ -15,6 +16,47 @@
 </style>
 <div class=app >
     <h1>Sports App</h1>
+
+
+
+
+
+    <div id="userCreate">
+        <h1>EDIT ACCOUNT</h1>
+        <p><a href="account-venue.html">Edit venue</a></p>
+
+
+        <input type=text id=username placeholder=username><br>
+        <input type=text id=email placeholder=email><br>
+        <input type=date id=dob placeholder="date of birth"><br>
+        <input type=password id=pass placeholder="password"><br>
+
+        <a href="javascript:register()">Create Account</a>
+<p id=createRes></p>
+
+
+
+
+    </div>
+
+
+    <div id="userLogin">
+
+        <h1>Login to system</h1>
+
+        <input type="text" id="loginEmail" placeholder="Email"><br>
+        <input type="password" id="loginPass" placeholder="Password"><br>
+
+       <a href="javascript:login()">Login</a><br><br>
+        <a href="javascript:createUser()">New user? Register here!</a><br><br>
+        <p id="logRes"></p>
+        <p id=tempRes></p>
+
+    </div>
+
+    <div id="loggedIn">
+        <p id="loggedInRes"></p>
+    </div>
 
 </div>
 
@@ -37,4 +79,3 @@
 
 <script src="cordova.js"></script>
 <script src="js/index.js"></script>
-<script src="//cdn.jsdelivr.net/npm/pouchdb@7.2.1/dist/pouchdb.min.js"></script>

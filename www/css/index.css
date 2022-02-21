@@ -22,7 +22,7 @@
 
 .active{
 
-        background-color: #04AA6D;
+        background-color: #17517e;
         }
 
 
@@ -143,6 +143,34 @@ h1 {
     display:none;
 }
 
+#venueAccount {
+
+position: relative;
+margin-left: auto;
+margin-right: auto;
+width: 80%;
+
+
+display:none;
+
+}
+
+#userAccount {
+
+margin: auto;
+width: 50%;
+
+
+}
+
+#userAccount a {
+
+border-style: solid;
+padding: 3%;
+
+}
+
+
 #deviceready.ready .event.listening { display: none; }
 #deviceready.ready .event.received { display: block; }
 
@@ -164,6 +192,20 @@ h1 {
     }
 
 
-
-
 }
+
+#createAccountBtn {
+
+border-style: solid;
+width: 70%;
+height: 20%;
+}
+
+
+#userCreate {
+display:none;
+}
+
+#loggedIn {
+display:none;}
+
