@@ -209,3 +209,24 @@ display:none;
 #loggedIn {
 display:none;}
 
+  input, textarea {
+        -webkit-user-select: auto !important;
+        -khtml-user-select: auto !important;
+        -moz-user-select: auto !important;
+        -ms-user-select: auto !important;
+        -o-user-select: auto !important;
+        user-select: auto !important;
+  }
+
+
+  #createImage{
+
+  width: 210px;
+  height: 90px;
+
+  }
+
+  #pSel{
+  padding: 0;
+  margin: 6px;
+  }

@@ -34,8 +34,14 @@
         <meta name="viewport" content="initial-scale=1, width=device-width, viewport-fit=cover">
         <meta name="color-scheme" content="light dark">
         <link rel="stylesheet" href="css/index.css">
+
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
         <script src=https://cdnjs.cloudflare.com/ajax/libs/pouchdb/7.2.2/pouchdb.min.js></script>
+        <script src="js/index.js"></script>
+        <script
+                src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB_n-dn04Dg4Rl98YPi-rk4ginBBuHYPe0&callback=initMap&libraries=&v=weekly"
+                async
+        ></script>
         <title>Sports Application</title>
 
         <style>
@@ -68,8 +74,10 @@
                 <p>Game example four</p>
             </div><br><br>
             <div id="myLocation" class=home>
-                <p> My location...</p>
+                <p> My location</p>
+                <div id="map" style="width:100%;height:200px;"></div>
             </div>
+
         </div>
             <div id="nav">
 
@@ -86,6 +94,6 @@
             </div>
 
         <script src="cordova.js"></script>
-        <script src="js/index.js"></script>
+
     </body>
 </html>

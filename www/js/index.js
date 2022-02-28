@@ -1,4 +1,182 @@
 let accountsDb = new PouchDB("accounts");
+let venuesDb = new PouchDB("venues");
+var map;
+var lat;
+var lng;
+let venLat;
+let venLng;
+
+
+
+
+function getLocation(){
+
+if (navigator.geolocation){
+navigator.geolocation.getCurrentPosition(showPosition);
+console.log("exec");
+} else {
+console.log("Geolocation is not supported by this browser.");
+}
+
+}
+
+function showPosition(position){
+
+lat = position.coords.latitude,
+lng = position.coords.longitude
+console.log("exec 2");
+initMap();
+
+}
+
+
+
+
+
+
+function initMap(){
+
+
+
+console.log(lat);
+console.log(lng);
+
+map = new google.maps.Map(document.getElementById("map"), {
+zoom: 10,
+center: new google.maps.LatLng(lat, lng)
+
+});
+
+google.maps.event.addListener(map, 'click', function(event) {
+  placeMarker(event.latLng);
+
+});
+
+
+}
+
+var marker;
+
+function placeMarker(loc) {
+  if ( marker ) {
+    marker.setPosition(loc);
+  } else {
+    marker = new google.maps.Marker({
+      position: loc,
+      map: map
+    });
+
+  }
+      console.log(loc.lat());
+      console.log(loc.lng());
+
+      venLat = loc.lat();
+      venLng = loc.lng();
+}
+
+
+
+
+async function getVenues(){
+let promise = new Promise((resolve,reject) => {
+
+venuesDb.allDocs({
+            include_docs: true,
+            attachments: true
+        }).then(function (result) {
+resolve(result);
+
+}).catch(function (err){
+reject (err);})
+
+})
+
+let result = await promise;
+return result;
+};
+
+async function createVenueBtn(){
+
+let uniqueVenue = 0;
+
+
+let n = $("#venueName").val();
+let p = $("#venuePostcode").val();
+let im = $("#venuePicture").val();
+
+
+let img = new Image();
+img.id = "createImage";
+img.src = im;
+document.getElementById("venPic").appendChild(img);
+document.getElementById("venPic").style.display = "block";
+
+
+
+console.log(n);
+
+
+let location = {
+lat: venLat,
+lng: venLng,
+}
+let rating = "UNDER_CONSTRUCTION_NUM_OF_STARS"
+
+getVenues().then(value => {
+
+
+for (i=0;i < value.rows.length; i++){
+
+
+
+
+
+if (n === value.rows[i].doc.name && p === value.rows[i].doc.postcode){
+$("#venueCreateRes").text("Venue already exists!");
+uniqueVenue = 1;
+}
+}
+
+if (uniqueVenue === 0 ){
+
+//if not null
+if (n != "" && p != "" && im != "" && venLat != "" && venLng != "" ){
+
+
+let id = value.rows.length +1
+//we all good
+let venue = {
+
+_id:id.toString(),
+name:n,
+postcode:p,
+image:im,
+rating:rating,
+latLng:location
+
+}
+
+venuesDb.put(venue);
+console.log(venue);
+
+console.log(getVenues());
+$("#venueCreateRes").text("Venue created successfully!");
+
+}
+else {
+
+$("#venueCreateRes").text("please enter information into every field");
+}
+}
+
+
+
+});
+
+
+
+}
+
 
 
 
@@ -188,20 +366,6 @@ $("#createRes").text("ACCOUNT CREATED SUCCESSFULLY - WELCOME, " + u);
 $("#losRes").text("result");
 */
 
-
-
-$("#loginBtn").on('click touch', function(){
-//check login!!!
-
-$("#createRes").text("Mobile is trying");
-login();
-
-})
-
-
-
-
-
 $("#venueBtn").click(function(){
 
 document.getElementById("userCreate").style.display = "none";
@@ -220,15 +384,27 @@ document.getElementById("userCreate").style.display = "block";
 
 });
 
+function createVenue(){
+
+console.log("Heyo");
+document.getElementById("createVenue").style.display = "block";
+
+}
+
 document.addEventListener('deviceready', onDeviceReady, false);
 
 function onDeviceReady() {
     // Cordova is now initialized. Have fun!
 
+getLocation();
+
+
+//map = new google.maps.Map(document.getElementById('map'), {
+//center:
+//})
 
 
 
-let sports = [];
 
 
 };
@@ -292,92 +468,6 @@ $("#footballBtn").click(function(){
 // do this for every sport
 
 })
-
-
-
-
-
-
-const settings = {
-	"async": true,
-	"crossDomain": true,
-	"url": "https://sportscore1.p.rapidapi.com/sports",
-	"method": "GET",
-	"headers": {
-		"x-rapidapi-host": "sportscore1.p.rapidapi.com",
-		"x-rapidapi-key": "3e74b52bfbmshfa3bed0081d07cdp101d2djsn5b7bbb4fdc8a"
-	}
-};
-
-$.ajax(settings).done(function (response) {
-
-
-	for (let i = 0; i < response.data.length; i++){
-	sports.push(response.data[i].name);
-	}
-
-
-console.log(sports.length);
-
-for (let u = 0; u < sports.length; u++){
-
-
-
-
-
-
-let btn = document.createElement("button");
-btn.innerHTML = sports[u];
-btn.id = sports[u];
-
-$("#sportP").append(sports[u] + "<br>");
-}
-	
-
-
-});
-
-const getByDate = {
-	"async": true,
-	"crossDomain": true,
-	"url": "https://livescore6.p.rapidapi.com/matches/v2/list-by-date?Category=soccer&Date=" + getDate(),
-	"method": "GET",
-	"headers": {
-		"x-rapidapi-host": "livescore6.p.rapidapi.com",
-		"x-rapidapi-key": "3e74b52bfbmshfa3bed0081d07cdp101d2djsn5b7bbb4fdc8a"
-	}
-};
-
-$.ajax(getByDate).done(function (response) {
-
-	let upcomingGames = [];
-	console.log(response);
-	for (let i = 0; i < response.Stages.length; i++){
-		//if (response.data[i].status === "notstarted"){
-
-		//	let game = {sport:response.data[i].sport.name,
-			//	home:response.data[i].home_team.name,
-			//	away:response.data[i].away_team.name,
-			//	date:response.data[i].start_at}
-
-			//	upcomingGames.push(game);
-		//}
-	}
-
-	console.log(upcomingGames);
-});
-
-function getNextEvents(){
-
-	let d = new Date();
-	let date = d.getFullYear() + "-" + (d.getMonth() + 1) + "-" + d.getDate();
-	let time = d.getHours() - 7 + ":" + d.getMinutes() + ":" + d.getSeconds();
-	return date + " " + time;
-
-
-
-}
-
 
 
 
