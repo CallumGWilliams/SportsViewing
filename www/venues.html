@@ -3,9 +3,14 @@
 <meta name="viewport" content="initial-scale=1, width=device-width, viewport-fit=cover">
 <meta name="color-scheme" content="light dark">
 <link rel="stylesheet" href="css/index.css">
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <title>Sports Application</title>
-
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src=https://cdnjs.cloudflare.com/ajax/libs/pouchdb/7.2.2/pouchdb.min.js></script>
+<script src="js/index.js"></script>
+<script
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB_n-dn04Dg4Rl98YPi-rk4ginBBuHYPe0&callback=initMap&libraries=&v=weekly"
+        async
+></script>
 <style>
 
             .home {
@@ -13,13 +18,23 @@
                 outline-color: black;
             }
 </style>
+
+<body class="onVenues">
 <div class=app >
     <h1>Sports App</h1>
+
+
+    <div id=venues>
+
+
 
     </div>
 
 
+    </div>
 
+
+</body>
 
 <div id="nav">
 
@@ -41,5 +56,3 @@
 
 
 <script src="cordova.js"></script>
-<script src="js/index.js"></script>
-<script src="//cdn.jsdelivr.net/npm/pouchdb@7.2.1/dist/pouchdb.min.js"></script>
