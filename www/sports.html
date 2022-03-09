@@ -5,6 +5,7 @@
 <link rel="stylesheet" href="css/index.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="//cdn.jsdelivr.net/npm/pouchdb@7.2.1/dist/pouchdb.min.js"></script>
+<script src="https://kit.fontawesome.com/index.js" crossorigin="anonymous"></script>
 <title>Sports Application</title>
 <script src=https://cdnjs.cloudflare.com/ajax/libs/pouchdb/7.2.2/pouchdb.min.js></script>
 <style>
@@ -19,15 +20,48 @@
 <h2>Sports</h2>
 
 <div id=sports>
-<ul class=sportsList>
-    <li id="footballBtn">Football</li>
-    <li id="tennisBtn">Tennis</li>
-    <li id="basketBtn">Basketball</li>
-        <li id=iceHockeyBtn>Ice Hockey</li>
-        <li id=volleyballBtn>Volleyball</li>
-        <li id=handballBtn>Handball</li>
 
-</ul>
+
+
+    <div id="footballDiv">
+        <a href="javascript:showFootball()">Football</a>
+
+        <table id="footballTable" style="display:none">
+            <tr>
+                <th>Time</th>
+                <th>Home</th>
+                <th>Away</th>
+                <th>League</th>
+                <th>Screenings</th>
+            </tr>
+        </table>
+
+    </div>
+    <div id="tennisDiv">
+        <a href="javascript:showTennis()">Tennis</a>
+    </div>
+    <div id=javascript:americanFootballDiv>
+        <a href="javascript:showAmericanFootball()">American Football</a>
+    </div>
+    <div id="rugbyDiv">
+        <a href="javascript:showRugby()">Rugby</a>
+    </div>
+    <div id="cricketDiv">
+        <a href="javascript:showCricket()">Cricket</a>
+    </div>
+    <div id="dartsDiv">
+        <a href="javascript:showDarts()">Darts</a>
+    </div>
+    <div id="boxingDiv">
+        <a href="javascript:showBoxing()">Boxing</a>
+    </div>
+    <div id="golfDiv">
+        <a href="javascript:showGolf()">Golf</a>
+    </div>
+    <div id="motorsportDiv">
+        <a href="javascript:showMotorsport()">Motorsport</a>
+    </div>
+
 </div>
 </div>
 
@@ -41,7 +75,7 @@
         <li class="active">Sports</li>
         <li><a href="venues.html">Venues</a></li>
         <li><a href="account.html">Account</a></li>
-        <li><a href="settings.html">Settings</a></li>
+        <li><a href="settings.ejs">Settings</a></li>
 
 
     </ul>

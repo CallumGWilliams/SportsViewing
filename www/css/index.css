@@ -250,3 +250,51 @@ display:none;}
   #venues {
 
   }
+
+  #sports div {
+
+  margin: 15px;
+  border: 1px solid;
+  font-size: large;
+background-color: #cdcdcd
+  }
+
+  #sports a {
+
+  color:black;
+  margin: 10px;
+
+  }
+
+  #userLogin a {
+  color:black;
+  border: 1px solid;
+  padding: 4px;
+  background-color: #cdcdcd
+  }
+
+#myLocation p {
+
+margin: 10px;
+top: 50%;
+}
+
+#loggedIn p {
+font-size: large;
+}
+
+#loggedIn a {
+font-size: large;
+color:black;
+border: 1px solid;
+background-color: #cdcdcd;
+padding: 8px;
+}
+
+#cvb{
+font-size: large;
+color:black;
+border: 1px solid;
+background-color: #cdcdcd;
+padding: 8px;
+}

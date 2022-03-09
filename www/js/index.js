@@ -1,5 +1,6 @@
 let accountsDb = new PouchDB("accounts");
 let venuesDb = new PouchDB("venues");
+let gamesDb = new PouchDB("games");
 //let remoteAccounts = new PouchDB("http://localhost:8000/remoteAccounts");
 //let remoteVenues = new PouchDB("http://localhost:8000/remoteVenues");
 var map;
@@ -7,7 +8,99 @@ var lat;
 var lng;
 let venLat;
 let venLng;
+let id;
 
+
+
+function showFootball(){
+
+
+getGames().then( value => {
+
+id = value.rows.length + 1;
+
+})
+
+const settings = {
+	"async": true,
+	"crossDomain": true,
+	"url": "https://flashscore.p.rapidapi.com/v1/events/list?indent_days=0&timezone=-4&locale=en_GB&sport_id=1",
+	"method": "GET",
+	"headers": {
+		"x-rapidapi-host": "flashscore.p.rapidapi.com",
+		"x-rapidapi-key": "3e74b52bfbmshfa3bed0081d07cdp101d2djsn5b7bbb4fdc8a"
+	}
+};
+
+$.ajax(settings).done(function (response) {
+	console.log(response);
+
+
+for (i = 0;i < response.DATA.length;i++){
+
+if ( response.DATA[i].NAME === "England: Premier League" || response.DATA[i].NAME === "England: Championship"
+|| response.DATA[i].NAME === "Europe: Europa League - Play Offs" || response.DATA[i].NAME === "Europe: Champions League - Play Offs"
+// || Prem etc. 
+
+){
+
+
+console.log(response.DATA[i]);
+
+for(l = 0;l < response.DATA[i].EVENTS.length;l++){
+
+console.log(response.DATA[i].EVENTS[l]);
+
+
+let games = {
+
+_id: id.toString(),
+sport:"Football",
+time:response.DATA[i].EVENTS[l].START_TIME,
+home:response.DATA[i].EVENTS[l].HOME_NAME,
+away:response.DATA[i].EVENTS[l].AWAY_NAME,
+league:response.DATA[i].NAME,
+channel:response.DATA[i].EVENTS[l].TV_LIVE_STREAMING
+}
+id +1;
+gamesDb.put(games);
+id++;
+
+}
+}
+
+
+
+
+}
+getGames().then(value => {
+console.log(value);
+//here you can add the games to the html!
+
+})
+
+});
+}
+
+
+async function getGames(){
+
+let promise = new Promise((resolve,reject) => {
+
+gamesDb.allDocs({
+            include_docs: true,
+            attachments: true
+        }).then(function (result) {
+resolve(result);
+
+}).catch(function (err){
+reject (err);})
+
+})
+
+let result = await promise;
+return result;
+};
 
 
 
@@ -34,13 +127,19 @@ initMap();
 
 
 
+
+
 function initMap(){
 
 
 
 map = new google.maps.Map(document.getElementById("map"), {
 zoom: 10,
-center: new google.maps.LatLng(lat, lng)
+center: new google.maps.LatLng(lat, lng),
+mapTypeControl: false,
+streetViewControl: false,
+
+
 
 });
 
@@ -100,11 +199,19 @@ let n = $("#venueName").val();
 let p = $("#venuePostcode").val();
 let im = $("#venuePicture").val();
 
-
+if ($("#createImage").length < 1) {
 let img = new Image();
 img.id = "createImage";
 img.src = im;
 document.getElementById("venPic").appendChild(img);
+}
+else {
+
+img.src = im;
+document.getElementById("venPic").appendChild(img);
+
+}
+
 document.getElementById("venPic").style.display = "block";
 
 
@@ -406,6 +513,31 @@ $("#footballBtn").click(function(){
 // do this for every sport
 
 })
+
+const settings = {
+	"async": true,
+	"crossDomain": true,
+	"url": "https://flashscore.p.rapidapi.com/v1/events/list?indent_days=0&timezone=-4&locale=en_GB&sport_id=1",
+	"method": "GET",
+	"headers": {
+		"x-rapidapi-host": "flashscore.p.rapidapi.com",
+		"x-rapidapi-key": "3e74b52bfbmshfa3bed0081d07cdp101d2djsn5b7bbb4fdc8a"
+	}
+};
+
+$.ajax(settings).done(function (response) {
+console.log(response);
+	console.log(response.DATA[0].EVENTS[0].HOME_NAME);
+		$("#exGame0").text("TIME "  + "HOME TEAM " +  "AWAY TEAM");
+	$("#exGameOne").text(response.DATA[0].EVENTS[0].START_TIME + "  " + response.DATA[0].EVENTS[0].HOME_NAME + " VS " + response.DATA[0].EVENTS[0].AWAY_NAME);
+	$("#exGameTwo").text(response.DATA[1].EVENTS[0].START_TIME + "  " + response.DATA[1].EVENTS[0].HOME_NAME + " VS " + response.DATA[1].EVENTS[0].AWAY_NAME);
+	$("#exGameThree").text(response.DATA[2].EVENTS[0].START_TIME + "  " + response.DATA[2].EVENTS[0].HOME_NAME + " VS " + response.DATA[2].EVENTS[0].AWAY_NAME);
+	$("#exGameFour").text(response.DATA[3].EVENTS[0].START_TIME + "  " + response.DATA[3].EVENTS[0].HOME_NAME + " VS " + response.DATA[3].EVENTS[0].AWAY_NAME);
+
+
+
+
+});
 
 
 
