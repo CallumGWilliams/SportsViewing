@@ -14,7 +14,6 @@ let id;
 
 function showFootball(){
 
-
 getGames().then( value => {
 
 id = value.rows.length + 1;
@@ -40,7 +39,7 @@ for (i = 0;i < response.DATA.length;i++){
 
 if ( response.DATA[i].NAME === "England: Premier League" || response.DATA[i].NAME === "England: Championship"
 || response.DATA[i].NAME === "Europe: Europa League - Play Offs" || response.DATA[i].NAME === "Europe: Champions League - Play Offs"
-// || Prem etc. 
+// || Prem etc.
 
 ){
 
@@ -63,7 +62,31 @@ league:response.DATA[i].NAME,
 channel:response.DATA[i].EVENTS[l].TV_LIVE_STREAMING
 }
 id +1;
+
+getGames().then(value => {
+
+let s = 0;
+
+if (value.rows.length === 0){
 gamesDb.put(games);
+}
+
+for (i=0;i < value.rows.length;i++){
+
+if (games.time === value.rows[i].doc.time && games.home === value.rows[i].doc.home && games.away === value.rows[i].doc.away){
+console.log(games.home + " VS " + games.away + " already exists in the database");
+s = 1;
+}
+
+}
+
+if (s = 0){
+
+gamesDb.put(games);
+}
+
+})
+
 id++;
 
 }
